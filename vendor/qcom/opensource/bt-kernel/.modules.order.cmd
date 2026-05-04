@@ -1,0 +1,1 @@
+savedcmd_/home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/bt-kernel/modules.order := {  :; } > /home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/bt-kernel/modules.order

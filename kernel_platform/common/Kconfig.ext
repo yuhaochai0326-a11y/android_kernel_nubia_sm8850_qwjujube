@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: GPL-2.0
+# Platform extensions for Qualcomm Canoe (SM8850 / Snapdragon 8 Elite)
+# Required by vendor drivers in vendor/qcom/opensource/
+
+config ARCH_CANOE
+	bool "Qualcomm Technologies, Inc. Canoe (SM8850)"
+	depends on ARCH_QCOM
+	help
+	  Support for the Qualcomm Canoe (SM8850) SoC platform.
+	  This is used by the RedMagic 11 Pro (NX809J) and related devices.
+	  Select this to enable vendor driver compilation for this platform.

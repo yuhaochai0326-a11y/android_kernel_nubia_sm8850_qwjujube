@@ -1,0 +1,1 @@
+savedcmd_/home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/bt-kernel/Module.symvers :=  ./scripts/mod/modpost -M -m -b   -E     -o /home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/bt-kernel/Module.symvers -T /home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/bt-kernel/modules.order -i ./Module.symvers -e 

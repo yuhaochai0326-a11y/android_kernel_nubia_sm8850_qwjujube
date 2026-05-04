@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="gl-system" lang="en">
+<head>
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<title>Not Found</title>
+<script nonce="kr5RfJEY9HA1sYYDppN15w==">
+//<![CDATA[
+const root = document.documentElement;
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  root.classList.add('gl-dark');
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+  if (e.matches) {
+    root.classList.add('gl-dark');
+  } else {
+    root.classList.remove('gl-dark');
+  }
+});
+
+//]]>
+</script>
+<link rel="stylesheet" href="/assets/errors-f1ada7b45b1333449a2e51b8c01e172b58cfcd42f2ef554069df8d974fccc22e.css" />
+<link rel="stylesheet" href="/assets/application-abccfa37b0f17cedddf56895cec864ac4f135996a53749e184b6795ed8e8f38a.css" />
+<link rel="stylesheet" href="/assets/fonts-deb7ad1d55ca77c0172d8538d53442af63604ff490c74acc2859db295c125bdb.css" />
+<link rel="stylesheet" href="/assets/tailwind-c08848da3dd38d0ea041754c68182a96877b2c15d5a36d64634338a29ac5c57f.css" />
+</head>
+<body>
+<div class="page-container">
+<div class="error-container">
+<img alt="404" src="/assets/illustrations/error/error-404-lg-9dfb20cc79e1fe8104e0adb122a710283a187b075b15187e2f184d936a16349c.svg" />
+<h1>
+404: Page not found
+</h1>
+<p>
+Make sure the address is correct and the page has not moved.
+Please contact your GitLab administrator if you think this is a mistake.
+</p>
+<div class="action-container">
+<form class="form-inline-flex" action="/search" accept-charset="UTF-8" method="get"><div class="field">
+<input type="search" name="search" id="search" value="" placeholder="Search for projects, issues, etc." class="form-control gl-rounded-lg" />
+</div>
+<button type="submit" class="gl-button btn btn-md btn-confirm "><span class="gl-button-text">
+Search
+
+</span>
+
+</button></form></div>
+<nav>
+<ul class="error-nav">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/users/sign_in?redirect_to_referer=yes">Sign In / Register</a>
+</li>
+<li>
+<a href="/help">Help</a>
+</li>
+</ul>
+</nav>
+
+</div>
+
+</div>
+<script nonce="kr5RfJEY9HA1sYYDppN15w==">
+//<![CDATA[
+(function(){
+  var goBackElement = document.querySelector('.js-go-back');
+
+  if (goBackElement && history.length > 1) {
+    goBackElement.removeAttribute('hidden');
+
+    goBackElement.querySelector('button').addEventListener('click', function() {
+      history.back();
+    });
+  }
+
+  // We do not have rails_ujs here, so we're manually making a link trigger a form submit.
+  document.querySelector('.js-sign-out-link')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.js-sign-out-form')?.submit();
+  });
+}());
+
+//]]>
+</script></body>
+</html>

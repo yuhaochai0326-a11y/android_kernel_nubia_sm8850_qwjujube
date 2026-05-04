@@ -1,0 +1,1 @@
+savedcmd_/home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/graphics-kernel/modules.order := {   echo /home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/graphics-kernel/msm_kgsl.o; :; } > /home/adrianojr59/Downloads/NX809JAndroid16/vendor/qcom/opensource/graphics-kernel/modules.order
