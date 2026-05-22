@@ -1,6 +1,6 @@
 # Análise e Engenharia Reversa - `bt-kernel` (Bluetooth)
 
-Este documento detalha o processo de compilação, adaptações e auditoria dos drivers de Bluetooth (`bt-kernel`) para o Red Magic 11 Pro (NX809J) com o processador Snapdragon 8 Elite (plataforma `canoe`).
+Este documento detalha o processo de compilação, adaptações e auditoria dos drivers de Bluetooth (`bt-kernel`) para o Red Magic 11 Pro (NX809J) com o processador Snapdragon 8 Gen 5 (plataforma `canoe`).
 
 ---
 

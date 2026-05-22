@@ -27,7 +27,7 @@ Este documento detalha as descobertas, stubs e modificações feitas no techpack
 * **Validação:** Comparação 1:1 do `hboost_notifier` descompilado com o open-source confirmou que o limite `MAX_HAPTICS_VMAX_MV = 10000` (corrigido de 8700 do open-source original), o divisor `VMAX_STEP_MV = 50`, e o retorno `-EINVAL` são 100% idênticos ao binário oficial.
 
 ### E. Incompatibilidade com API ALSA / ASoC 6.12+
-* **Problema:** O kernel GKI 6.12 substituiu a API ASoC clássica `asoc_rtd_to_codec` por `snd_soc_rtd_to_codec` no arquivo `sun.c` (Snapdragon 8 Elite / SM8750).
+* **Problema:** O kernel GKI 6.12 substituiu a API ASoC clássica `asoc_rtd_to_codec` por `snd_soc_rtd_to_codec` no arquivo `sun.c` (Snapdragon 8 Gen 5 / SM8850).
 * **Solução:** Envolvido o uso de `asoc_rtd_to_codec` com checagem de versão de Kernel (`LINUX_VERSION_CODE >= KERNEL_VERSION(6, 12, 0)`), garantindo retrocompatibilidade total.
 
 ---

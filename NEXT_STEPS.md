@@ -1,6 +1,6 @@
 # NEXT_STEPS - Tarefas Pendentes para Continuação
 
-**Dispositivo:** RedMagic 11 Pro (NX809J) — Snapdragon 8 Elite (SM8750)  
+**Dispositivo:** RedMagic 11 Pro (NX809J) — Snapdragon 8 Gen 5 (SM8850)  
 **Última atualização:** 2026-05-19  
 
 ---

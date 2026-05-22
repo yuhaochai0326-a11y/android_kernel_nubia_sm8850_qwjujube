@@ -12,4 +12,4 @@ The `zte_stats_info` module is a customized stats collection driver that exposes
   - To work around this without breaking GKI compliance, we implemented `zte_lock_task_sighand` locally. This dereferences `tsk->sighand` under RCU protection and acquires `siglock` manually, achieving complete binary parity without depending on unexported GKI symbols.
 
 ## Verification
-Successfully compiled targeting the Snapdragon 8 Elite AOSP Clang toolchain without modpost warnings.
+Successfully compiled targeting the Snapdragon 8 Gen 5 AOSP Clang toolchain without modpost warnings.

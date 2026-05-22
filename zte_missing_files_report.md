@@ -2,9 +2,9 @@
 
 **Subject:** Formal Request for Missing Source Code, Headers, and Configuration Files in the Android 16 Kernel Source Release  
 **Device:** RedMagic 11 Pro (NX809J)  
-**SoC:** Qualcomm Snapdragon 8 Elite (SM8750, codename `canoe` / board `qwjujube`)  
+**SoC:** Qualcomm Snapdragon 8 Gen 5 (SM8850, codename `canoe` / board `qwjujube`)  
 **Kernel Version:** 6.12.23-android16  
-**Contact Email:** [idealcreativesuporte@idealcreative.com.br](mailto:idealcreativesuporte@idealcreative.com.br)  
+**Contact Email:** [adrianojr59@gmail.com](mailto:adrianojr59@gmail.com)  
 **Date:** 2026-05-19  
 
 ---
@@ -23,7 +23,7 @@ Under the terms of the GNU General Public License v2 (GPLv2), the complete and c
 
 ### 2.1 Platform Defconfig Fragment
 
-* **Missing File:** `canoe.fragment` (or equivalent platform configuration fragment for SM8750/canoe)
+* **Missing File:** `canoe.fragment` (or equivalent platform configuration fragment for SM8850/canoe)
 * **Expected Location:** `kernel_platform/common/arch/arm64/configs/` or equivalent
 * **Impact:** Compiling with the default `gki_defconfig` leaves essential Qualcomm SoC-level drivers disabled (e.g., `CONFIG_QCOM_SCM`, `CONFIG_ARM_SMMU`, `CONFIG_QCOM_RPMH`, `CONFIG_INTERCONNECT_QCOM`, regulators, clock controllers). This prevents the compilation of approximately **194 platform-level kernel modules** that are present and loaded in the production firmware.
 * **Evidence:** The running device loads modules such as `clk_rpmh`, `gcc_canoe`, `gpucc_canoe`, `dispcc_canoe`, `arm_smmu`, `qcom_rpmh`, etc., but the corresponding Kconfig options are not enabled in the delivered defconfig.
@@ -146,7 +146,7 @@ The following modules are loaded in the production firmware but their source cod
 
 Under the GNU General Public License v2 (GPLv2), Section 3, we formally request the following items to achieve complete and corresponding source code for the NX809J production firmware:
 
-1. **Platform configuration fragment** (`canoe.fragment` or equivalent defconfig) for SM8750/canoe enabling all Qualcomm platform drivers
+1. **Platform configuration fragment** (`canoe.fragment` or equivalent defconfig) for SM8850/canoe enabling all Qualcomm platform drivers
 2. **WLAN host driver source code** (`qcacld-3.0` and `qca-wifi-host-cmn` repositories)
 3. **MMRM driver source code** (`mmrm-driver/`) and header (`msm_mmrm.h`)
 4. **Synx driver source code** (`synx-kernel/`) and headers (`synx_api.h`, `synx_interop.h`)
