@@ -93,7 +93,7 @@ The following **12 ZTE-branded modules** are loaded in the production firmware, 
 
 ## 🔧 CRITICAL TECHNICAL SYMPTOM (BOOT HANG)
 
-When attempting to build and run the kernel using reverse-engineered stubs to bypass the omissions, the custom GKI image compiles but hangs indefinitely at the initial RedMagic boot logo. The console-ramoops logs reveal that the boot sequence stalls at:
+When attempting to build the kernel and integrate compatibility stub implementations to satisfy the dependencies of the omitted hardware components, the custom GKI image compiles but hangs indefinitely at the initial RedMagic boot logo. The console-ramoops logs reveal that the boot sequence stalls at:
 
 ```
 [0.181496] arm-scmi arm-scmi.1.auto: Failed to get FC for protocol 13 [MSG_ID:6 / RES_ID:0] - ret:-22

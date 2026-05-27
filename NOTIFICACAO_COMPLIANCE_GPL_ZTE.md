@@ -93,7 +93,7 @@ Os **12 drivers de kernel a seguir** são desenvolvidos ou modificados pela ZTE 
 
 ## 🔧 SINTOMA TÉCNICO CRÍTICO EM CONCURSO (BOOT HANG)
 
-Ao tentarmos compilar o kernel com engenharia reversa para preencher as lacunas dos arquivos omitidos pela ZTE, o dispositivo depara-se com um travamento de boot inultrapassável devido ao firmware proprietário (`PDP0`) esperar inicializações síncronas de mailbox/SCMI que dependem dos códigos de plataforma ocultados:
+Ao tentarmos compilar o kernel fornecido e desenvolver implementações de stubs de compatibilidade para suprir as dependências dos componentes de hardware omitidos, o dispositivo depara-se com um travamento de boot inultrapassável devido ao firmware proprietário (`PDP0`) esperar inicializações síncronas de mailbox/SCMI que dependem dos códigos de plataforma ocultados:
 
 ```
 [0.181496] arm-scmi arm-scmi.1.auto: Failed to get FC for protocol 13 [MSG_ID:6 / RES_ID:0] - ret:-22
