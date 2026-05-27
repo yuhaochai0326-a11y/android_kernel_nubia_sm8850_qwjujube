@@ -4,6 +4,23 @@ Este guia explica como compilar, empacotar e inicializar o kernel customizado co
 
 ---
 
+## 🔴 BLOQUEADOR ATUAL: Travamento de Boot no Logo RedMagic
+
+> [!WARNING]
+> A **Build #8** inicializa além do early-init, mas **trava indefinidamente na tela do logotipo da RedMagic**.
+> A causa raiz foi identificada como um **timeout de SCMI** no `arm-scmi.1.auto` que impede o carregamento do remoteproc ADSP/CDSP, fazendo com que o `keymint` e o `vold` não iniciem, bloqueando a descriptografia da partição `/data` (FBE).
+>
+> **Ajuda da comunidade é bem-vinda!** Se você tem experiência com SCMI da Qualcomm, GKI KCFI ou fluxo de boot do Android FBE, consulte os documentos de diagnóstico e as petições de conformidade abaixo.
+
+| Documento | Idioma | Descrição |
+|-----------|--------|-----------|
+| **[BOOT_HANG_DIAGNOSTIC_PT.md](BOOT_HANG_DIAGNOSTIC_PT.md)** | 🇧🇷 Português | Diagnóstico completo do hang de boot com dados de ramoops, comparação stock vs custom, e guia de investigação |
+| **[BOOT_HANG_DIAGNOSTIC_EN.md](BOOT_HANG_DIAGNOSTIC_EN.md)** | 🇺🇸 English | Full boot hang diagnostic with ramoops data, stock vs custom comparison, and investigation guide |
+| **[NOTIFICACAO_COMPLIANCE_GPL_ZTE.md](NOTIFICACAO_COMPLIANCE_GPL_ZTE.md)** | 🇧🇷 Português | Notificação formal de descumprimento da licença GPL v2 e lista de fontes em falta para enviar à ZTE |
+| **[GPL_COMPLIANCE_NOTICE_ZTE.md](GPL_COMPLIANCE_NOTICE_ZTE.md)** | 🇺🇸 English | Formal GPL v2 compliance notice and missing components report to send to ZTE support |
+
+---
+
 ## 📋 Pré-requisitos
 
 Para que a compilação e o empacotamento funcionem corretamente, você deve providenciar os seguintes componentes (que estão configurados no `.gitignore` para manter o repositório limpo):
