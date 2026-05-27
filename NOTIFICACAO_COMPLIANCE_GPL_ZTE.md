@@ -8,7 +8,7 @@
 
 ---
 
-## 📄 CARTA DE APRESENTAÇÃO (MENSAGEM A ENVIAR)
+## 📄 CARTA DE APRESENTAÇÃO
 
 *Prezada Equipe de Suporte e Compliance da ZTE / Nubia,*
 
@@ -22,11 +22,7 @@
 
 *Solicitamos que a ZTE providencie a liberação de um pacote de código-fonte atualizado contendo todos esses elementos faltantes ou incorpore-os no repositório oficial de publicação de código de vocês.*
 
-*Aguardo seu retorno no prazo legal de resposta sobre a disponibilização dos fontes.*
-
-*Atenciosamente,*  
-*Coding-BR / Ideal Creative*  
-*Contato: idealcreativesuporte@idealcreative.com.br*  
+*Aguardo seu retorno no prazo legal de resposta sobre a disponibilização dos fontes.*  
 
 ---
 
