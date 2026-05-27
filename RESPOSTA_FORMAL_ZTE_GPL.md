@@ -44,21 +44,24 @@ O pilar técnico desta notificação é a liberação de um código-fonte de ker
 Compreendemos o direito legal de manter sob código fechado os algoritmos de processamento de imagem das câmeras, calibração de tela e firmwares da banda base (modem). No entanto, nossa exigência técnica — **amparada inegociavelmente pela licença global GPLv2 do Kernel Linux** — é a disponibilização das partes estruturais e configurações de compilação (*defconfig*) necessárias para que o kernel seja compilável e capaz de inicializar (boot) o smartphone de forma autônoma.
 
 #### O Blocker Atual de Inicialização (Evidência de Inconformidade):
-Durante os testes de compilação com a árvore fornecida, o kernel compila, mas trava indefinidamente na tela de logotipo (*boot hang*). O log de console (`console-ramoops`) aponta a seguinte falha crítica:
+Ressalta-se que a omissão de configurações básicas de compilação exigiu a análise estática e reconstrução manual de símbolos e cabeçalhos apenas para viabilizar a compilação inicial da árvore fornecida, indicando uma falha grave em fornecer um ambiente de desenvolvimento reprodutível.
+
+Durante os testes de compilação com a árvore fornecida, o kernel é gerado, mas trava indefinidamente na tela de logotipo (*boot hang*). O log de console (`console-ramoops`) aponta a seguinte falha crítica:
 ```
 [0.181496] arm-scmi arm-scmi.1.auto: Failed to get FC for protocol 13 [MSG_ID:6 / RES_ID:0] - ret:-22
 ...
 [1.112952] arm-scmi arm-scmi.1.auto: timed out in resp (caller: do_xfer+0x140/0x4ec)
 [1.116211] scmi_cpuss_telemetry_probe: Not able to find shared memory location
 ```
-Este **timeout no protocolo SCMI** ocorre porque a fabricante omitiu o fragmento de configuração da plataforma (`canoe.fragment`) e as implementações internas do driver de mailbox/SCMI. A cascata de falhas resultante impede o carregamento dos coprocessadores (`adsp-loader`), impossibilita a inicialização do driver de segurança (`keymint`) e impede a descriptografia da partição `/data` (FBE), congelando o sistema operacional.
+Este **timeout no protocolo SCMI** ocorre porque a fabricante omitiu o fragmento de configuração da plataforma (`canoe.fragment`) e as implementações internas do driver de mailbox/SCMI. A cascata de falhas resultante impede o carregamento dos coprocessadores (`adsp-loader`), impossibilita a inicialização do driver de segurança (`keymint`) e impede a descriptografia da partição `/data` (FBE), congelando o sistema operacional em um estado inoperante.
 
 #### O Mínimo Funcional Exigido por Lei:
-Para conformidade com a GPLv2, exigimos os códigos-fontes (kernel-space) dos seguintes componentes básicos, sem os quais o sistema não opera:
+Para conformidade estrita com a GPLv2, exigimos a publicação dos códigos-fontes (kernel-space) dos seguintes componentes básicos, sem os quais o sistema não opera:
 *   **Camada de Inicialização e SCMI:** Configuração de mailbox da CPU (`canoe.fragment` e DTBs de coordenação com o firmware `PDP0`).
 *   **Driver do Painel de Toque (Touchscreen):** O código original C do driver do touchscreen (`zte_tpd`).
 *   **Políticas de Energia e Carga:** Drivers de gerenciamento de bateria e carga (`zte_charger_policy` e `zte_power_supply`).
-*   **Display e Áudio Básico:** Suporte mínimo para inicializar o console de tela e codecs básicos de som.
+*   **Display e Áudio Básico:** Código-fonte em C com suporte mínimo para inicializar o console de tela e codecs básicos de som, sem qualquer dependência de binários proprietários pré-compilados (blobs) ocultos no kernel-space.
+*   **Segurança e Descriptografia:** Componentes e configurações de TEE/TrustZone em nível de kernel necessários para a comunicação com o `keymint` e a correta descriptografia FBE da partição `/data`.
 
 *Nota: Firmwares secundários podem permanecer fechados em nível de HAL (User-Space) ou binários carregados na RAM do chip, desde que o kernel Linux fornecido inicialize o Android na tela principal adequadamente.*
 
