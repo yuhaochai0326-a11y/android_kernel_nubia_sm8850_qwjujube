@@ -1,5 +1,6 @@
 #!/bin/bash
 # super_build.sh - Compile the official ZTE kernel tree (in-tree)
+set -e
 
 cd "$(dirname "$(readlink -f "$0")")"
 
@@ -39,7 +40,7 @@ echo "🔧 Using Clang: $CLANG_DIR"
 
 # 1. Defconfig (Base configuration)
 echo "📝 Applying nx809j_defconfig..."
-make -C $KERNEL_DIR nx809j_defconfig
+make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 nx809j_defconfig
 
 # Apply config overrides directly to the common/.config file
 echo "⚙️ Appending custom configuration overrides..."
