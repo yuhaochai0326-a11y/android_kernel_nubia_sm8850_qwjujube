@@ -24,6 +24,8 @@ ramoops*
 new-console-ramoops*
 *.log
 *.txt
+!/kernel_platform/**/*.txt
+!/vendor/**/*.txt
 
 # IDEs e configurações locais
 .vscode/
