@@ -932,9 +932,4 @@ int mem_buf_dma_buf_set_destructor(struct dma_buf *dmabuf, int (*destructor)(voi
 EXPORT_SYMBOL(mem_buf_dma_buf_set_destructor);
 #endif
 
-u64 zte_get_boot_mode(void)
-{
-	return 0;
-}
-EXPORT_SYMBOL(zte_get_boot_mode);
 
