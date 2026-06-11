@@ -5,9 +5,14 @@ void change_tp_state(int state)
     const char *lcdstate_str = "unknown";
     const char *lcdchange_str = "unknown";
 
+    if (!tpd_cdev) {
+        pr_err("tpd_ufp_err: change_tp_state called but tpd_cdev is NULL!\n");
+        return;
+    }
+
     mutex_lock((struct mutex *)(tpd_cdev + 2824));
     if (state < 0 || state > 3 || current_lcd_state < 0 || current_lcd_state >= 3) {
-        __break(0x5512);
+        pr_warn("tpd_ufp_err: change_tp_state invalid input - state: %d, current_lcd_state: %d\n", state, current_lcd_state);
         mutex_unlock((struct mutex *)(tpd_cdev + 2824));
         return;
     }

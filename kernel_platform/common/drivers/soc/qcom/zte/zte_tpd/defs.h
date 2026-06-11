@@ -3,6 +3,7 @@
 
 #include <linux/module.h>
 #include <linux/kernel.h>
+#include <linux/soc/qcom/panel_event_notifier.h>
 #include <linux/init.h>
 #include <linux/platform_device.h>
 #include <linux/device.h>
@@ -338,7 +339,7 @@ extern struct ufp_tp_ops_struct ufp_tp_ops;
 extern int current_lcd_state;
 extern char panel_enter_low_power;
 extern void change_tp_state(int state);
-extern void syna_ts_panel_notifier_callback(__int64 a1, __int64 a2, __int64 a3);
+extern void syna_ts_panel_notifier_callback(enum panel_event_notifier_tag tag, struct panel_event_notification *notification, void *client_data);
 extern int syna_work_charger_detect_work_status;
 
 struct point_info_struct {

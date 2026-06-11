@@ -1,15 +1,14 @@
 #include <linux/soc/qcom/panel_event_notifier.h>
 
-void __fastcall syna_ts_panel_notifier_callback(__int64 a1, __int64 a2, __int64 a3)
+void __fastcall syna_ts_panel_notifier_callback(enum panel_event_notifier_tag tag, struct panel_event_notification *notification, void *client_data)
 {
   unsigned int v3;
   void *v8;
-  struct panel_event_notification *notification = (struct panel_event_notification *)a2;
 
   if ( !notification )
   {
     v8 = unk_31F2D;
-    printk(v8, notification, a3);
+    printk(v8, notification, client_data);
     return;
   }
   v3 = notification->notif_type;
@@ -21,7 +20,7 @@ void __fastcall syna_ts_panel_notifier_callback(__int64 a1, __int64 a2, __int64 
       {
         panel_enter_low_power = 0;
         ufp_notifier_cb(0);
-        printk(unk_35A7D, notification, a3);
+        printk(unk_35A7D, notification, client_data);
       }
       if ( notification->notif_data.early_trigger == 1 )
       {
@@ -29,7 +28,7 @@ void __fastcall syna_ts_panel_notifier_callback(__int64 a1, __int64 a2, __int64 
         return;
       }
       v8 = unk_32F7F;
-      printk(v8, notification, a3);
+      printk(v8, notification, client_data);
       return;
     }
     if ( v3 == DRM_PANEL_EVENT_UNBLANK )
@@ -45,10 +44,10 @@ void __fastcall syna_ts_panel_notifier_callback(__int64 a1, __int64 a2, __int64 
         return;
       }
       v8 = unk_347E1;
-      printk(v8, notification, a3);
+      printk(v8, notification, client_data);
       return;
     }
-    printk(unk_3C4D0, v3, a3);
+    printk(unk_3C4D0, v3, client_data);
     return;
   }
   if ( v3 == DRM_PANEL_EVENT_BLANK_LP )
@@ -58,5 +57,5 @@ void __fastcall syna_ts_panel_notifier_callback(__int64 a1, __int64 a2, __int64 
     ufp_report_lcd_state(0, 0, 0);
     return;
   }
-  printk(unk_3C4D0, v3, a3);
+  printk(unk_3C4D0, v3, client_data);
 }

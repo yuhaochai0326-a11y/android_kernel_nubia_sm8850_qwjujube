@@ -19,7 +19,7 @@ __int64 __fastcall syna_dev_remove(__int64 a1, __int64 a2, __int64 a3)
   _flush_workqueue(*(_QWORD *)(v3 + 1352));
   destroy_workqueue(*(_QWORD *)(v3 + 1352));
   if ( active_panel && *(_QWORD *)(v3 + 1360) )
-    panel_event_notifier_unregister();
+    panel_event_notifier_unregister((void *)*(_QWORD *)(v3 + 1360));
   syna_sysfs_remove_dir(v3);
   syna_cdev_remove(v3);
   v4 = syna_dev_disconnect(v3, 0, 0);

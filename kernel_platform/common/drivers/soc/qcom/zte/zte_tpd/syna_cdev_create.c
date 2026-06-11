@@ -150,27 +150,28 @@ LABEL_15:
     unregister_chrdev_region(*(unsigned int *)(a1 + 896), 1);
     return (unsigned int)v5;
   }
-  v11 = class_create("synaptics_tcm");
-  v5 = v11;
-  if ( v11 >= 0xFFFFFFFFFFFFF001LL )
+
+  struct class *cl = class_create("synaptics_tcm");
+  if ( IS_ERR(cl) )
   {
+    LODWORD(v5) = PTR_ERR(cl);
     printk(unk_35AC9, "syna_cdev_create", v12);
 LABEL_14:
-    cdev_del(a1 + 760);
+    cdev_del((struct cdev *)(a1 + 760));
     goto LABEL_15;
   }
-  *(_QWORD *)(v11 + 32) = syna_cdev_devnode;
-  v13 = device_create(v11, 0, *(unsigned int *)(a1 + 896), 0, "tcm%d", *(_DWORD *)(a1 + 896) & 0xFFFFF);
-  if ( v13 >= 0xFFFFFFFFFFFFF001LL )
+  cl->devnode = (void *)syna_cdev_devnode;
+  struct device *dev = device_create(cl, NULL, *(unsigned int *)(a1 + 896), NULL, "tcm%d", *(_DWORD *)(a1 + 896) & 0xFFFFF);
+  if ( IS_ERR(dev) )
   {
+    LODWORD(v5) = PTR_ERR(dev);
     printk(unk_3B816, "syna_cdev_create", v14);
-    class_destroy(v5);
-    LODWORD(v5) = -2;
+    class_destroy(cl);
     goto LABEL_14;
   }
-  *(_QWORD *)(a1 + 912) = v13;
-  HIDWORD(qword_31700) = 0;
-  *(_QWORD *)(a1 + 904) = v5;
+  *(struct device **)(a1 + 912) = dev;
+  *(struct class **)(a1 + 904) = cl;
+
   *(_DWORD *)(a1 + 900) = 0;
   *(_QWORD *)(a1 + 1272) = a1 + 1272;
   *(_QWORD *)(a1 + 1280) = a1 + 1272;
