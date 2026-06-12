@@ -155,6 +155,10 @@ int __init kernelsu_init(void)
 		ksu_file_wrapper_init();
 	}
 
+	/* Initialize GPU Adreno 750 (1230MHz) Overclock Injection */
+	void ksu_adreno_overclock_init(void);
+	ksu_adreno_overclock_init();
+
 #ifdef MODULE
 #ifndef CONFIG_KSU_DEBUG
 	kobject_del(&THIS_MODULE->mkobj.kobj);
