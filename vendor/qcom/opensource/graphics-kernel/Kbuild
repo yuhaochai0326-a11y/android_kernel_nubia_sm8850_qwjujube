@@ -81,7 +81,7 @@ ifeq ($(CONFIG_ARCH_SM6150), y)
 	subdir-ccflags-y += $(LE_EXTRA_CFLAGS)
 endif
 
-ccflags-y += -I$(KGSL_PATH) -I$(KGSL_PATH)/include/linux -I$(KGSL_PATH)/include -I$(KERNEL_SRC)/drivers/devfreq \
+ccflags-y += -I$(KGSL_PATH) -I$(KGSL_PATH)/include/linux -I$(KGSL_PATH)/include -I$(srctree)/drivers/devfreq \
              -DCONFIG_QCOM_ADRENO_DEFAULT_GOVERNOR=\"msm-adreno-tz\" \
              -DCONFIG_QCOM_KGSL_IDLE_TIMEOUT=80
 

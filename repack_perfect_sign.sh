@@ -63,32 +63,50 @@ if [ $? -eq 0 ]; then
     echo "📂 Perfect boot image generated: $FINAL_IMG"
     echo "🚀 Ready for testing via: fastboot boot $FINAL_IMG"
     
-    # Check for zte_tpd.ko and generate flashable Magisk/KernelSU module zip
+    # Check for zte_tpd.ko and msm_kgsl.ko to generate flashable Magisk/KernelSU module zip
     TPD_KO=""
     if [ -f "vendor/zte/zte_tpd/zte_tpd.ko" ]; then
         TPD_KO="vendor/zte/zte_tpd/zte_tpd.ko"
     elif [ -f "kernel_platform/common/drivers/soc/qcom/zte/zte_tpd/zte_tpd.ko" ]; then
         TPD_KO="kernel_platform/common/drivers/soc/qcom/zte/zte_tpd/zte_tpd.ko"
     fi
+
+    KGSL_KO=""
+    if [ -f "vendor/qcom/opensource/graphics-kernel/msm_kgsl.ko" ]; then
+        KGSL_KO="vendor/qcom/opensource/graphics-kernel/msm_kgsl.ko"
+    fi
     
-    if [ ! -z "$TPD_KO" ]; then
-        echo "📦 Packaging custom touch driver into Magisk/KernelSU flashable zip..."
+    if [ ! -z "$TPD_KO" ] || [ ! -z "$KGSL_KO" ]; then
+        echo "📦 Packaging custom drivers into Magisk/KernelSU flashable zip..."
         rm -rf "ksu_module_temp" && mkdir -p "ksu_module_temp/vendor_dlkm/lib/modules"
-        cp "$TPD_KO" "ksu_module_temp/vendor_dlkm/lib/modules/"
         cp module.prop "ksu_module_temp/"
+        
+        if [ ! -z "$TPD_KO" ]; then
+            cp "$TPD_KO" "ksu_module_temp/vendor_dlkm/lib/modules/"
+        fi
+        if [ ! -z "$KGSL_KO" ]; then
+            cp "$KGSL_KO" "ksu_module_temp/vendor_dlkm/lib/modules/"
+        fi
         
         # Create post-fs-data.sh
         cat <<'EOF' > ksu_module_temp/post-fs-data.sh
 #!/system/bin/sh
 MODDIR="${0%/*}"
-KO_SRC="${MODDIR}/vendor_dlkm/lib/modules/zte_tpd.ko"
-KO_DST="/vendor_dlkm/lib/modules/zte_tpd.ko"
 
-if [ -f "${KO_SRC}" ] && [ -f "${KO_DST}" ]; then
-    mount --bind "${KO_SRC}" "${KO_DST}"
+# Bind mount touchscreen driver
+KO_SRC_TPD="${MODDIR}/vendor_dlkm/lib/modules/zte_tpd.ko"
+KO_DST_TPD="/vendor_dlkm/lib/modules/zte_tpd.ko"
+if [ -f "${KO_SRC_TPD}" ] && [ -f "${KO_DST_TPD}" ]; then
+    mount --bind "${KO_SRC_TPD}" "${KO_DST_TPD}"
     log -t "zte_custom_drivers" "Bind mounted custom zte_tpd.ko successfully"
-else
-    log -t "zte_custom_drivers" "ERROR: zte_tpd.ko source or destination not found"
+fi
+
+# Bind mount GPU driver
+KO_SRC_KGSL="${MODDIR}/vendor_dlkm/lib/modules/msm_kgsl.ko"
+KO_DST_KGSL="/vendor_dlkm/lib/modules/msm_kgsl.ko"
+if [ -f "${KO_SRC_KGSL}" ] && [ -f "${KO_DST_KGSL}" ]; then
+    mount --bind "${KO_SRC_KGSL}" "${KO_DST_KGSL}"
+    log -t "zte_custom_drivers" "Bind mounted custom msm_kgsl.ko successfully"
 fi
 EOF
         chmod +x ksu_module_temp/post-fs-data.sh
@@ -106,7 +124,7 @@ EOF
         rm -rf "ksu_module_temp"
         echo "✅ Generated flashable module: zte_custom_drivers.zip"
     else
-        echo "⚠️ Note: zte_tpd.ko not found, skipping Magisk/KernelSU module packaging."
+        echo "⚠️ Note: Neither zte_tpd.ko nor msm_kgsl.ko was found, skipping Magisk/KernelSU module packaging."
     fi
 
     # Check for adreno_overclock.ko and generate flashable Magisk/KernelSU module zip

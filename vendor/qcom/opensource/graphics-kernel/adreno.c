@@ -790,6 +790,13 @@ static int adreno_of_parse_pwrlevels(struct adreno_device *adreno_dev,
 		of_property_read_u32(child, "qcom,cx-level",
 			&level->cx_level);
 
+		/* Dynamic Overclock Injection for 1230MHz GPU and 0x1d0 overvolt corner */
+		if (level->gpu_freq == 1200000000) {
+			level->gpu_freq = 1230000000;
+			level->voltage_level = 464; /* RPMH_REGULATOR_LEVEL_SUPER_TURBO (0x1d0) */
+			level->cx_level = 64;
+		}
+
 		level->bus_min = level->bus_freq;
 		kgsl_of_property_read_ddrtype(child,
 			"qcom,bus-min", &level->bus_min);
