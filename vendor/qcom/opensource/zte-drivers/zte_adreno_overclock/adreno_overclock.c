@@ -6,30 +6,8 @@
 #include <linux/device.h>
 #include <linux/delay.h>
 
-/* Structures mapped from static analysis */
-struct kgsl_pwrlevel {
-	unsigned int gpu_freq;
-	unsigned int bus_freq;
-	unsigned int bus_min;
-	unsigned int bus_max;
-	unsigned int acd_level;
-	unsigned int cx_level;
-	unsigned int voltage_level;
-};
-
-struct kgsl_pwrctrl {
-	char padding[9144];
-	struct kgsl_pwrlevel pwrlevels[32];
-	unsigned int min_pwrlevel;
-	unsigned int max_pwrlevel;
-	unsigned int reserved;
-	unsigned int num_pwrlevels;
-};
-
-struct kgsl_device {
-	char padding[152];
-	struct kgsl_pwrctrl pwrctrl;
-};
+#include "kgsl_device.h"
+#include "kgsl_pwrctrl.h"
 
 typedef struct kgsl_device *(*kgsl_get_device_t)(int id);
 static kgsl_get_device_t local_kgsl_get_device = NULL;
