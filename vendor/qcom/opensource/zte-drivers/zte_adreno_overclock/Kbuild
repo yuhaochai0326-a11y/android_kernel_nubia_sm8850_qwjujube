@@ -1,3 +1,2 @@
 # Kbuild for adreno_overclock.ko
 obj-m += adreno_overclock.o
-adreno_overclock-y := adreno_overclock.o
