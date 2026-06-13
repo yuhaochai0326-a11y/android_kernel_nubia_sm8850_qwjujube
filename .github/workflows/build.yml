@@ -79,6 +79,12 @@ jobs:
           export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
           export CLANG_TRIPLE=aarch64-linux-gnu-
           export CC=clang
+          
+          # Copy graphics headers locally into the module folder to bypass compiler sandbox restrictions
+          cp vendor/qcom/opensource/graphics-kernel/*.h vendor/qcom/opensource/zte-drivers/zte_adreno_overclock/
+          mkdir -p vendor/qcom/opensource/zte-drivers/zte_adreno_overclock/uapi/linux/
+          cp vendor/qcom/opensource/graphics-kernel/include/uapi/linux/msm_kgsl.h vendor/qcom/opensource/zte-drivers/zte_adreno_overclock/uapi/linux/
+          
           make -C kernel_platform/common M=../../vendor/qcom/opensource/zte-drivers/zte_adreno_overclock LLVM=1 LLVM_IAS=1 KBUILD_MODPOST_WARN=1 modules
 
       - name: Patch Touchscreen Driver (zte_tpd.ko)
