@@ -62,39 +62,11 @@ echo "🚀 Starting Unified Build for RedMagic 11 Pro (NX809J)"
 echo "🔧 Using Clang: $CLANG_DIR"
 
 # 1. Defconfig (Base configuration)
-echo "📝 Applying nx809j_defconfig..."
-make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 nx809j_defconfig
-
-# Apply config overrides directly to the common/.config file
-echo "⚙️ Appending custom configuration overrides..."
-{
-    echo 'CONFIG_LOCALVERSION_AUTO=n'
-    echo 'CONFIG_CFI_CLANG=y'
-    echo 'CONFIG_CFI_PERMISSIVE=y'
-    echo 'CONFIG_KSU=y'
-    echo '# CONFIG_ARM64_BTI_KERNEL is not set'
-    echo 'CONFIG_UNWIND_TABLES=y'
-    echo 'CONFIG_UNWIND_PATCH_PAC_INTO_SCS=y'
-    echo 'CONFIG_DEBUG_INFO=y'
-    echo '# CONFIG_DEBUG_INFO_NONE is not set'
-    echo 'CONFIG_DEBUG_INFO_DWARF5=y'
-    echo 'CONFIG_DEBUG_INFO_BTF=y'
-    echo 'CONFIG_DEBUG_INFO_BTF_MODULES=y'
-    echo 'CONFIG_DEBUG_INFO_COMPRESSED_NONE=y'
-    echo '# CONFIG_DEBUG_INFO_COMPRESSED_ZSTD is not set'
-    echo 'CONFIG_SCHED_CLASS_EXT=y'
-    echo 'CONFIG_EXT_GROUP_SCHED=y'
-    echo 'CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,ipe,bpf"'
-    echo 'CONFIG_MODVERSIONS=y'
-    echo 'CONFIG_BASIC_MODVERSIONS=y'
-    echo 'CONFIG_EXTENDED_MODVERSIONS=y'
-    # CONFIG_MODULE_FORCE_LOAD removed: causes crashes when KSU hooks modify
-    # struct layouts, making stock .ko modules access wrong offsets
-    echo '# CONFIG_MODULE_FORCE_LOAD is not set'
-} >> $KERNEL_DIR/.config
+echo "📝 Applying op_wild_defconfig..."
+make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 op_wild_defconfig
 
 # Process config overrides
-echo "🔄 Updating defconfig with overrides..."
+echo "🔄 Updating defconfig..."
 make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 olddefconfig
 
 if [ ! -f "$KERNEL_DIR/.config" ]; then
