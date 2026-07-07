@@ -62,11 +62,21 @@ echo "🚀 Starting Unified Build for RedMagic 11 Pro (NX809J)"
 echo "🔧 Using Clang: $CLANG_DIR"
 
 # 1. Defconfig (Base configuration)
-echo "📝 Applying op_wild_defconfig..."
-make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 op_wild_defconfig
+echo "[1/4] Applying factory kernel config..."
+cp configs/nx809j_factory_defconfig "$KERNEL_DIR/arch/arm64/configs/"
+make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 nx809j_factory_defconfig
 
 # Process config overrides
-echo "🔄 Updating defconfig..."
+echo "[2/4] Enabling Droidspaces container support..."
+scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_USER_NS
+scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_PID_NS
+scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_IPC_NS
+scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_DEVTMPFS
+scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_DEVTMPFS_MOUNT
+scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_DEVICE
+scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_PIDS
+
+echo "[3/4] Resolving config dependencies..."
 make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 olddefconfig
 
 if [ ! -f "$KERNEL_DIR/.config" ]; then
@@ -75,7 +85,7 @@ if [ ! -f "$KERNEL_DIR/.config" ]; then
 fi
 
 # 2. Build kernel, modules, and DTBs
-echo "🛠️ Compiling Kernel, Modules, and DTBs (in-tree)..."
+echo "[4/4] Compiling Kernel, Modules, and DTBs (in-tree)..."
 make -C $KERNEL_DIR -j$(nproc) LLVM=1 LLVM_IAS=1 KBUILD_MODPOST_WARN=1 Image vmlinux modules dtbs
 
 echo "✅ Compilation finished!"
