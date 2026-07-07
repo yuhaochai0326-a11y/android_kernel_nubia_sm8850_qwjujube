@@ -84,6 +84,15 @@ if [ ! -f "$KERNEL_DIR/.config" ]; then
     exit 1
 fi
 
+# Apply KABI patch for Droidspaces compatibility
+echo "📦 Applying Droidspaces KABI patch..."
+if [ -f patches/Kernel_6.12.patch ]; then
+    patch -p1 < patches/Kernel_6.12.patch
+    echo "✅ KABI patch applied"
+else
+    echo "⚠️  KABI patch not found, skipping"
+fi
+
 # 2. Build kernel, modules, and DTBs
 echo "[4/4] Compiling Kernel, Modules, and DTBs (in-tree)..."
 make -C $KERNEL_DIR -j$(nproc) LLVM=1 LLVM_IAS=1 KBUILD_MODPOST_WARN=1 Image vmlinux modules dtbs
