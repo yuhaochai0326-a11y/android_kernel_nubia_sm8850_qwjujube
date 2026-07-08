@@ -63,7 +63,6 @@ echo "🔧 Using Clang: $CLANG_DIR"
 
 # 1. Defconfig (Base configuration)
 echo "[1/4] Applying factory kernel config..."
-cp configs/nx809j_factory_defconfig "$KERNEL_DIR/arch/arm64/configs/"
 make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 nx809j_factory_defconfig
 
 # Process config overrides
