@@ -86,7 +86,7 @@ fi
 # Apply KABI patch for Droidspaces compatibility
 echo "📦 Applying Droidspaces KABI patch..."
 if [ -f patches/Kernel_6.12.patch ]; then
-    patch -p1 < patches/Kernel_6.12.patch
+    patch -p1 -t < patches/Kernel_6.12.patch  # -t: skip hunks that don't apply cleanly
     echo "✅ KABI patch applied"
 else
     echo "⚠️  KABI patch not found, skipping"
