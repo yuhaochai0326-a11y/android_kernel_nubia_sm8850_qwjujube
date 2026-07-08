@@ -94,9 +94,12 @@ else
     echo "⚠️  KABI patch not found, skipping"
 fi
 
-# 2. Build kernel, modules, and DTBs
-echo "[4/4] Compiling Kernel, Modules, and DTBs (in-tree)..."
-make -C $KERNEL_DIR -j$(nproc) LLVM=1 LLVM_IAS=1 Image
+# Create dummy abi_symbollist.raw (GKI modpost requirement, we use factory vendor modules)
+touch "$KERNEL_DIR"/abi_symbollist.raw
+
+# 2. Build kernel Image
+echo "[4/4] Compiling Kernel Image..."
+make -C $KERNEL_DIR -j$(nproc) LLVM=1 LLVM_IAS=1 KBUILD_MODPOST_WARN=1 Image
 
 echo "✅ Compilation finished!"
 echo "📦 Kernel Image built at: $KERNEL_DIR/arch/arm64/boot/Image"
