@@ -67,13 +67,13 @@ make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 nx809j_factory_defconfig
 
 # Process config overrides
 echo "[2/4] Enabling Droidspaces container support..."
-scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_USER_NS
-scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_PID_NS
-scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_IPC_NS
-scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_DEVTMPFS
-scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_DEVTMPFS_MOUNT
-scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_DEVICE
-scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_PIDS
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_USER_NS
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_PID_NS
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_IPC_NS
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_DEVTMPFS
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_DEVTMPFS_MOUNT
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_DEVICE
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_PIDS
 
 echo "[3/4] Resolving config dependencies..."
 make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 olddefconfig
