@@ -75,6 +75,8 @@ echo "[2/4] Enabling Droidspaces container support..."
 "$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_DEVICE
 "$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --enable CONFIG_CGROUP_PIDS
 
+# Disable MODULE_SIG_PROTECT (requires abi_symbollist.raw which we don't have)
+"$KERNEL_DIR"/scripts/config --file "$KERNEL_DIR/.config" --disable CONFIG_MODULE_SIG_PROTECT 2>/dev/null || true
 echo "[3/4] Resolving config dependencies..."
 make -C $KERNEL_DIR LLVM=1 LLVM_IAS=1 olddefconfig
 
